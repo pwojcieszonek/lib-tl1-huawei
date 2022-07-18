@@ -1,0 +1,8 @@
+module Lib
+  module TL1
+    module Huawei
+      VERSION: String
+      # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+    end
+  end
+end
