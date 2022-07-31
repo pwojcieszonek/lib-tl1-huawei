@@ -2,6 +2,7 @@
 
 require 'lib/tl1'
 require_relative 'response'
+require_relative 'exception'
 
 module Lib
   module TL1
@@ -31,6 +32,7 @@ module Lib
                 text_block: message.text_block
               )
             end
+            raise Lib::TL1::Huawei::StandardError.new(self.endesc, self.error_number) unless self.error_number.to_i == 0
           end
 
           def to_h
