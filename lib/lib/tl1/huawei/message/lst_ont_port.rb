@@ -27,12 +27,14 @@ module Lib
             @ont_port_type = ont_port_type
             @show_option = show_option
             super(
-              aid: __aid(
+              aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number,
                 ont_id: ont_id, ont_name: ont_name, ont_alias: ont_alias,
                 ont_port_type: ont_port_type, ont_port_id: ont_port_id
               ),
-              payload: __show_option(*show_option)
+              payload: hash_to_string(
+                show_option: __show_option(*show_option)
+              )
             )
           end
 

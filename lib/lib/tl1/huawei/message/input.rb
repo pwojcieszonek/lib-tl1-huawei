@@ -15,12 +15,8 @@ module Lib
 
           private
 
-          def __aid(**aid)
-            hash_to_string **aid
-          end
-
           def __show_option(*show_option)
-            show_option.empty? ? nil : "SHOWOPTION=#{show_option.map { |option| option.to_s.delete('_') }.join(' ') }"
+            show_option.empty? ? nil : show_option.map { |option| option.to_s.delete('_') }.join(' ')
           end
 
           def hash_to_string(**hash)
