@@ -18,7 +18,7 @@ module Lib
             @port_number = port_number
             @ont_sn = ont_sn
             super(
-              aid: __aid(
+              aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number, ont_sn: ont_sn
               )
             )

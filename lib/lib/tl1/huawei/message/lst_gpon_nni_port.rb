@@ -14,8 +14,10 @@ module Lib
             @dev = dev
             @show_option = show_option
             super(
-              aid: __aid(did: did, dev: dev),
-              payload: __show_option(*show_option)
+              aid: hash_to_string(did: did, dev: dev),
+              payload: hash_to_string(
+                show_option: __show_option(*show_option)
+              )
             )
           end
 

@@ -28,12 +28,14 @@ module Lib
             @onu_dev = onu_dev
             @show_option = show_option
             super(
-              aid: __aid(
+              aid: hash_to_string(
                 name: onu_name, ont_sn: ont_sn, ont_pwd: ont_pwd, did: did, dev: dev, fn: frame_number,
                 sn: slot_number, pn: port_number, ont_id: ont_id, run_stat: run_stat, onu_did: onu_did,
                 onu_dev: onu_dev
               ),
-              payload: __show_option(*show_option)
+              payload: hash_to_string(
+                show_option: __show_option(*show_option)
+              )
             )
           end
         end

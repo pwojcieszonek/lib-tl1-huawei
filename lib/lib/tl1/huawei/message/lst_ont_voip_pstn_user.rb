@@ -25,7 +25,7 @@ module Lib
             self.off_query_flag = off_query_flag
             @show_option = show_option
             super(
-              aid: __aid(
+              aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number,
                 ont_id: ont_id, ont_key: ont_key, ont_port_id: ont_port_id
               )
