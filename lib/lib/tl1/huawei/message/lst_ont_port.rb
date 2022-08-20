@@ -13,7 +13,7 @@ module Lib
 
           def initialize(
             did: nil, dev: nil, frame_number: nil, slot_number: nil, port_number: nil, ont_id: nil,
-            ont_name: nil, ont_alias: nil, ont_port_type: :eth, ont_port_id: nil, show_option: []
+            ont_name: nil, ont_alias: nil, ont_port_type: nil, ont_port_id: nil, show_option: []
           )
             @did = did
             @dev = dev
