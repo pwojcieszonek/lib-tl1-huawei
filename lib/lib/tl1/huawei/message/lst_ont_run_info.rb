@@ -12,7 +12,7 @@ module Lib
 
           def initialize(
             did: nil, dev: nil, frame_number: nil, slot_number: nil, port_number: nil, ont_id: nil,
-            ont_name: nil, ont_alias: nil
+            ont_name: nil, ont_alias: nil, show_option: []
           )
             @did = did
             @dev = dev
@@ -26,6 +26,9 @@ module Lib
               aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number,
                 ont_id: ont_id, ont_name: ont_name, ont_alias: ont_alias
+              ),
+              payload: hash_to_string(
+                show_option: __show_option(*show_option)
               )
             )
           end
