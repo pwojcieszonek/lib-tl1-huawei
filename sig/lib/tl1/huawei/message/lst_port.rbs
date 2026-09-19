@@ -1,0 +1,34 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstPort < Input
+          def initialize: (
+            ?port_alias: parameter?,
+            ?dev: parameter?,
+            ?did: parameter?,
+            ?onu_locate_info: parameter?,
+            ?frame_number: parameter?,
+            ?slot_number: parameter?,
+            ?port_number: parameter?,
+            ?port_type: parameter?,
+            ?port_status: parameter?,
+            ?db_only: parameter?,
+            ?show_option: show_options
+          ) -> void
+          attr_reader port_alias: parameter?
+          attr_reader dev: parameter?
+          attr_reader did: parameter?
+          attr_reader onu_locate_info: parameter?
+          attr_reader frame_number: parameter?
+          attr_reader slot_number: parameter?
+          attr_reader port_number: parameter?
+          attr_reader port_type: parameter?
+          attr_reader port_status: parameter?
+          attr_reader db_only: parameter?
+          attr_reader show_option: show_options
+        end
+      end
+    end
+  end
+end

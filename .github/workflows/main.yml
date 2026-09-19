@@ -3,29 +3,136 @@ name: Ruby Gem
 on:
   push:
     branches: [ master ]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    name: Build + Publish
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+  lint:
+    name: RuboCop (Ruby 3.4)
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Ruby 3.0
-        uses: actions/setup-ruby@v1
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.x
+          ruby-version: '3.4'
+          bundler: latest
+          bundler-cache: true
+      - run: bundle exec rake rubocop
+
+  test:
+    name: RSpec (Ruby ${{ matrix.ruby }})
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.4', '4.0']
+    env:
+      BUNDLE_WITHOUT: development
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler: latest
+          bundler-cache: true
+      - run: bundle exec rake spec
+
+  release_tag:
+    name: Prepare release tag
+    needs: [test, lint]
+    if: >-
+      github.event_name == 'push' && !github.event.deleted &&
+      (github.ref == 'refs/heads/master' || github.event.created)
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler: none
+      - name: Select or create release tag
+        id: release
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          version=$(ruby -r ./lib/lib/tl1/huawei/version -e 'puts Lib::TL1::Huawei::VERSION')
+          tag="v$version"
+
+          if [[ "$GITHUB_REF_TYPE" == 'tag' ]]; then
+            if [[ "$GITHUB_REF_NAME" != "$tag" ]]; then
+              echo "::error::Tag $GITHUB_REF_NAME does not match version $version."
+              exit 1
+            fi
+          else
+            if [[ "$BEFORE_SHA" == '0000000000000000000000000000000000000000' ]]; then
+              echo 'No previous branch revision; skipping automatic release.'
+              exit 0
+            fi
+
+            previous_version=$(git show "$BEFORE_SHA:lib/lib/tl1/huawei/version.rb" |
+              ruby -e 'eval($stdin.read); puts Lib::TL1::Huawei::VERSION')
+            if [[ "$version" == "$previous_version" ]]; then
+              echo 'Version has not changed; skipping release.'
+              exit 0
+            fi
+
+            if git show-ref --verify --quiet "refs/tags/$tag"; then
+              echo "Tag $tag already exists; skipping release."
+              exit 0
+            fi
+
+            git tag "$tag" "$GITHUB_SHA"
+            push_result=$(git push --porcelain origin "refs/tags/$tag")
+            printf '%s\n' "$push_result"
+            if ! grep -q '^\*' <<< "$push_result"; then
+              echo 'No new remote tag was created; skipping release.'
+              exit 0
+            fi
+          fi
+
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+  publish:
+    name: Build + Publish
+    needs: release_tag
+    # GITHUB_TOKEN-created tags do not trigger another push workflow.
+    if: needs.release_tag.outputs.tag != ''
+    runs-on: ubuntu-22.04
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ needs.release_tag.outputs.tag }}
+      - name: Verify tagged commit
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler: none
+      - name: Build gem
+        run: gem build lib-tl1-huawei.gemspec
+
+      - name: Configure RubyGems trusted publishing
+        uses: rubygems/configure-rubygems-credentials@2a7221c7c44c30ebc68eda38fa25c60b918245c7
+        with:
+          trusted-publisher: true
 
       - name: Publish to RubyGems
-        run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-          gem build *.gemspec
-          gem push *.gem
-        env:
-          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
+        run: gem push --host https://rubygems.org lib-tl1-huawei-*.gem

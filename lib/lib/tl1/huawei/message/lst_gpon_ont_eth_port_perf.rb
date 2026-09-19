@@ -6,6 +6,7 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries performance statistics for a GPON ONT Ethernet port.
         class LstGponOntEthPortPerf < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :frame_number, :slot_number, :port_number, :ont_id, :ont_port_id
 
@@ -13,13 +14,9 @@ module Lib
             did: nil, dev: nil, frame_number: nil, slot_number: nil, port_number: nil,
             ont_id: nil, ont_port_id: nil
           )
-            @did = did
-            @dev = dev
-            @frame_number = frame_number
-            @slot_number = slot_number
-            @port_number = port_number
-            @ont_id = ont_id
-            @ont_port_id = ont_port_id
+            set_attributes(
+              did:, dev:, frame_number:, slot_number:, port_number:, ont_id:, ont_port_id:
+            )
             super(
               aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number,

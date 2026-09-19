@@ -6,6 +6,7 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries GPON network-side ports and their selected attributes.
         class LstGponNniPort < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :show_option
 
@@ -20,7 +21,6 @@ module Lib
               )
             )
           end
-
         end
       end
     end

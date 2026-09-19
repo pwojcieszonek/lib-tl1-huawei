@@ -1,0 +1,38 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstOnt < Input
+          def initialize: (
+            ?onu_name: parameter?,
+            ?ont_sn: parameter?,
+            ?ont_pwd: parameter?,
+            ?did: parameter?,
+            ?dev: parameter?,
+            ?frame_number: parameter?,
+            ?slot_number: parameter?,
+            ?port_number: parameter?,
+            ?ont_id: parameter?,
+            ?run_stat: parameter?,
+            ?onu_did: parameter?,
+            ?onu_dev: parameter?,
+            ?show_option: show_options
+          ) -> void
+          attr_reader onu_name: parameter?
+          attr_reader ont_sn: parameter?
+          attr_reader ont_pwd: parameter?
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader frame_number: parameter?
+          attr_reader slot_number: parameter?
+          attr_reader port_number: parameter?
+          attr_reader ont_id: parameter?
+          attr_reader run_state: parameter?
+          attr_reader onu_did: parameter?
+          attr_reader onu_dev: parameter?
+          attr_reader show_option: show_options
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,11 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstEmfSysInfo < Input
+          def initialize: () -> void
+        end
+      end
+    end
+  end
+end

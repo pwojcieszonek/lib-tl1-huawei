@@ -1,9 +1,12 @@
-require_relative "input"
+# frozen_string_literal: true
+
+require_relative 'input'
 
 module Lib
   module TL1
     module Huawei
       module Message
+        # Builds a LOGIN command from the NBI username and password.
         class Login < Lib::TL1::Huawei::Message::Input
           attr_reader :password, :username
 
@@ -12,7 +15,6 @@ module Lib
             @password = password
             super(payload: "UN=#{username},PWD=#{password}")
           end
-
         end
       end
     end

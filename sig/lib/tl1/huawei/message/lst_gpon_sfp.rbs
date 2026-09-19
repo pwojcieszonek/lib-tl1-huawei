@@ -1,0 +1,27 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstGponSfp < Input
+          def initialize: (
+            ?did: parameter?,
+            ?dev: parameter?,
+            ?frame_number: parameter?,
+            ?slot_number: parameter?,
+            ?port_number: parameter?,
+            ?show_option: show_options
+          ) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader frame_number: parameter?
+          attr_reader slot_number: parameter?
+          attr_reader port_number: parameter?
+          attr_reader show_option: show_options
+          alias fn frame_number
+          alias pn port_number
+          alias sn slot_number
+        end
+      end
+    end
+  end
+end

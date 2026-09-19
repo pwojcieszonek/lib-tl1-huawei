@@ -1,0 +1,41 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class Input
+          include Comparable
+
+          def initialize: (?command: field_value, ?tid: field_value, ?aid: field_value, ?ctag: field_value, ?gb: field_value, ?payload: field_value) -> void
+          def to_s: () -> String
+          alias to_str to_s
+          def <=>: (untyped other) -> Integer?
+
+          attr_reader command: _Field
+          attr_reader tid: _Field
+          attr_reader aid: _Field
+          attr_reader ctag: _CorrelationTag
+          attr_reader gb: _Field
+          attr_reader payload: _Field
+          def command=: (field_value) -> _Field
+          def tid=: (field_value) -> _Field
+          def aid=: (field_value) -> _Field
+          def ctag=: (field_value) -> _CorrelationTag
+          def gb=: (field_value) -> _Field
+          def payload=: (field_value) -> _Field
+          alias command_verb command
+          alias command_verb= command=
+          alias verb command
+          alias verb= command=
+          alias target_identifier tid
+          alias target_identifier= tid=
+          alias access_identifier aid
+          alias access_identifier= aid=
+          alias correlation_tag ctag
+          alias correlation_tag= ctag=
+          alias general_block gb
+          alias general_block= gb=
+        end
+      end
+    end
+  end
+end

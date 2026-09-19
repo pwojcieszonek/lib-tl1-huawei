@@ -1,0 +1,18 @@
+
+
+   TEST 2026-09-19 12:00:00
+M  21 COMPLD
+   EN=0   ENDESC=Succeeded.
+   blktag=1
+   blkcount=7
+   blktotal=7
+
+ont eth port vlan information OLT_TEST
+-----------------------------------------------------------------
+DID	FN	SN	PN	ONTID	ONTPORTTYPE	ONTPORTID	VLANCFGTYPE	CVLAN	CPRI	CENCAP	SVLAN	SPRI	SPRIPOLICY
+1	0	7	0	1	ETH	1	TRANSLATION	1	0	IPOE	1	0	DSCPMAPPING
+1	0	7	0	1	ETH	1	TRANSLATION	1	1	IPOE	1	--	--
+1	0	7	0	1	ETH	1	TRANSLATION	10	1	--	10	0	SPECIFY
+-----------------------------------------------------------------
+
+;

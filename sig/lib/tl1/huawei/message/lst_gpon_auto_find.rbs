@@ -1,0 +1,27 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstGponAutoFind < Input
+          def initialize: (
+            ?did: parameter?,
+            ?dev: parameter?,
+            ?frame_number: parameter?,
+            ?slot_number: parameter?,
+            ?port_number: parameter?,
+            ?ont_sn: parameter?
+          ) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader frame_number: parameter?
+          attr_reader slot_number: parameter?
+          attr_reader port_number: parameter?
+          attr_reader ont_sn: parameter?
+          alias fn frame_number
+          alias pn port_number
+          alias sn slot_number
+        end
+      end
+    end
+  end
+end

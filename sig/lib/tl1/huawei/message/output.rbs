@@ -1,0 +1,95 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        type output_hash = {
+          sid: String,
+          date: String,
+          time: String,
+          ctag: String,
+          cc: String,
+          en: Integer,
+          endesc: String,
+          blktag: Integer?,
+          blkcount: Integer?,
+          blktotal: Integer?,
+          title: String?,
+          response: Array[Hash[Symbol, untyped]]
+        }
+
+        class Output
+          include Comparable
+
+          def initialize: (?String? message, ?sid: field_value, ?date: field_value, ?time: field_value, ?ctag: field_value, ?cc: field_value, ?text_block: field_value, ?encoding: String | Encoding | nil) -> void
+          def self.parse: (String message, ?encoding: String | Encoding | nil) -> Output
+          def to_s: () -> String
+          alias to_str to_s
+          def <=>: (untyped other) -> Integer?
+          def to_h: () -> output_hash
+
+          attr_reader sid: _Field
+          attr_reader date: _Field
+          attr_reader time: _Field
+          attr_reader ctag: _CorrelationTag
+          attr_reader cc: _Field
+          attr_reader text_block: _Field
+          def sid=: (field_value) -> _Field
+          def date=: (field_value) -> _Field
+          def time=: (field_value) -> _Field
+          def ctag=: (field_value) -> _CorrelationTag
+          def cc=: (field_value) -> _Field
+          def text_block=: (field_value) -> _Field
+          alias system_identifier sid
+          alias system_identifier= sid=
+          alias correlation_tag ctag
+          alias correlation_tag= ctag=
+          alias completion_code cc
+          alias completion_code= cc=
+
+          def en: () -> Integer
+          alias error_code en
+          alias return_code en
+          alias error_number en
+          def endesc: () -> String
+          def blktag: () -> Integer?
+          def blkcount: () -> Integer?
+          def blktotal: () -> Integer?
+          def title: () -> String?
+          def response: () -> Array[Response]
+          alias response_message response
+
+          def []: (Integer index) -> Response?
+                | (Integer start, Integer length) -> Array[Response]?
+                | (Range[Integer] range) -> Array[Response]?
+          def each: () { (Response) -> void } -> Array[Response]
+                  | () -> Enumerator[Response, Array[Response]]
+          def empty?: () -> bool
+          def first: () -> Response?
+                   | (Integer count) -> Array[Response]
+          def fetch: (Integer index) -> Response
+                   | [T] (Integer index, T default) -> (Response | T)
+                   | [T] (Integer index) { (Integer) -> T } -> (Response | T)
+          def include?: (untyped value) -> bool
+          def map: [T] () { (Response) -> T } -> Array[T]
+                 | () -> Enumerator[Response, Array[Response]]
+          def max: () ?{ (Response, Response) -> Integer } -> Response?
+                 | (Integer count) ?{ (Response, Response) -> Integer } -> Array[Response]
+          def min: () ?{ (Response, Response) -> Integer } -> Response?
+                 | (Integer count) ?{ (Response, Response) -> Integer } -> Array[Response]
+          def pop: () -> Response?
+                 | (Integer count) -> Array[Response]
+          def reverse: () -> Array[Response]
+          def select: () { (Response) -> bool } -> Array[Response]
+                    | () -> Enumerator[Response, Array[Response]]
+          def size: () -> Integer
+          def sort: () ?{ (Response, Response) -> Integer } -> Array[Response]
+          def to_a: () -> Array[Response]
+          def uniq: () ?{ (Response) -> untyped } -> Array[Response]
+          # Dynamic column access is available only for a complete result containing
+          # one record; missing methods raise NoMethodError.
+          def method_missing: (Symbol name, *untyped args) -> untyped
+        end
+      end
+    end
+  end
+end

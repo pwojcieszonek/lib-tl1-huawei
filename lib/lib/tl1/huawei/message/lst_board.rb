@@ -6,8 +6,8 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries boards by device, frame, slot, and board type.
         class LstBoard < Lib::TL1::Huawei::Message::Input
-
           attr_reader :dev, :did, :onu_locate_info, :frame_number, :slot_number, :board_type, :show_option
 
           def initialize(
@@ -19,13 +19,9 @@ module Lib
             board_type: nil,
             show_option: nil
           )
-            @dev = dev
-            @did = did
-            @frame_number = frame_number
-            @onu_locate_info = onu_locate_info
-            @slot_number = slot_number
-            @board_type = board_type
-            @show_option = show_option
+            set_attributes(
+              dev:, did:, frame_number:, onu_locate_info:, slot_number:, board_type:, show_option:
+            )
 
             super(
               aid: hash_to_string(
@@ -39,10 +35,8 @@ module Lib
               payload: __show_option(*show_option)
             )
           end
-
         end
       end
     end
   end
 end
-

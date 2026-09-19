@@ -6,8 +6,8 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries device ports by coordinates, type, status, and other selectors.
         class LstPort < Lib::TL1::Huawei::Message::Input
-
           attr_reader :port_alias, :dev, :did, :onu_locate_info, :frame_number, :slot_number, :port_number,
                       :port_type, :port_status, :db_only, :show_option
 
@@ -24,17 +24,10 @@ module Lib
             db_only: nil,
             show_option: nil
           )
-            @port_alias = port_alias
-            @dev = dev
-            @did = did
-            @onu_locate_info = onu_locate_info
-            @frame_number = frame_number
-            @slot_number = slot_number
-            @port_number = port_number
-            @port_type = port_type
-            @port_status = port_status
-            @db_only = db_only
-            @show_option = show_option
+            set_attributes(
+              port_alias:, dev:, did:, onu_locate_info:, frame_number:, slot_number:, port_number:,
+              port_type:, port_status:, db_only:, show_option:
+            )
             super(
               aid: hash_to_string(
                 alias: port_alias,
@@ -51,11 +44,8 @@ module Lib
               payload: __show_option(*show_option)
             )
           end
-
         end
       end
     end
   end
 end
-
-

@@ -6,6 +6,7 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries GPON line profiles, with device and profile selectors in the payload.
         class LstGponLineProfile < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :prof_id
 
