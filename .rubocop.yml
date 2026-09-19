@@ -1,0 +1,30 @@
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+# Named TL1 fields are part of the public command API; positional arguments keep
+# the default limit.
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+# Protocol field maps and expected response data are declarative collections.
+Metrics/MethodLength:
+  CountAsOne: ['array', 'hash', 'heredoc']
+
+# Example groups collect independent tests; individual examples remain checked.
+Metrics/BlockLength:
+  AllowedMethods: ['describe']
+
+# GB (general block) and CC (completion code) are public lib-tl1 keywords.
+Naming/MethodParameterName:
+  AllowedNames: ['cc', 'gb']
+
+# Response is a public OpenStruct subclass with dynamic, mutable TL1 columns.
+# Replacing it with a fixed Struct or Hash would change the record API.
+Style/OpenStructUse:
+  Exclude:
+    - 'lib/lib/tl1/huawei/message/response.rb'

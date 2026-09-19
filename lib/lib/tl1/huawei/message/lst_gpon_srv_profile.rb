@@ -6,6 +6,7 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries GPON service profiles, with device and profile selectors in the payload.
         class LstGponSrvProfile < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :prof_id
 

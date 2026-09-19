@@ -1,0 +1,14 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstGponNniPort < Input
+          def initialize: (?did: parameter?, ?dev: parameter?, ?show_option: show_options) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader show_option: show_options
+        end
+      end
+    end
+  end
+end

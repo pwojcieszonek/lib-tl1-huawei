@@ -1,0 +1,35 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstOntVoipPstnUser < Input
+          def initialize: (
+            ?did: parameter?,
+            ?dev: parameter?,
+            ?frame_number: parameter?,
+            ?slot_number: parameter?,
+            ?port_number: parameter?,
+            ?ont_id: parameter?,
+            ?ont_key: parameter?,
+            ?ont_port_id: parameter?,
+            ?off_query_flag: bool | String | Symbol,
+            ?show_option: show_options
+          ) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader frame_number: parameter?
+          attr_reader slot_number: parameter?
+          attr_reader port_number: parameter?
+          attr_reader ont_id: parameter?
+          attr_reader ont_key: parameter?
+          attr_reader ont_port_id: parameter?
+          attr_reader off_query_flag: String
+          attr_reader show_option: show_options
+          alias fn frame_number
+          alias pn port_number
+          alias sn slot_number
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,13 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class Login < Input
+          def initialize: (username: String, password: String) -> void
+          attr_reader password: String
+          attr_reader username: String
+        end
+      end
+    end
+  end
+end

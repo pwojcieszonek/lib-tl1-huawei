@@ -1,0 +1,10 @@
+module Lib
+  module TL1
+    module Huawei
+      class StandardError < ::StandardError
+        def initialize: (?String? message, ?Integer? error_number) -> void
+        attr_reader error_number: Integer?
+      end
+    end
+  end
+end

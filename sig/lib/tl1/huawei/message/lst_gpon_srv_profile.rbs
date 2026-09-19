@@ -1,0 +1,14 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstGponSrvProfile < Input
+          def initialize: (?did: parameter?, ?dev: parameter?, ?prof_id: parameter?) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader prof_id: parameter?
+        end
+      end
+    end
+  end
+end

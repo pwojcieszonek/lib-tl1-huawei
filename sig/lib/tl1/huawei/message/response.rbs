@@ -1,0 +1,20 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        # Columns depend on the command. OpenStruct also allows values to be changed
+        # later, so dynamic getters and the record hash use the untyped type.
+        class Response
+          def initialize: (?Hash[Symbol | String, untyped]? attributes) -> void
+          def []: (Symbol | String name) -> untyped
+          def []=: (Symbol | String name, untyped value) -> untyped
+          def to_h: () -> Hash[Symbol, untyped]
+                  | [K, V] () { (Symbol, untyped) -> [K, V] } -> Hash[K, V]
+          def each_pair: () { (Symbol, untyped) -> void } -> self
+                       | () -> Enumerator[[Symbol, untyped], self]
+          def method_missing: (Symbol name, *untyped args) -> untyped
+        end
+      end
+    end
+  end
+end

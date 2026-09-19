@@ -1,0 +1,7 @@
+module Lib
+  module TL1
+    module Huawei
+      VERSION: String
+    end
+  end
+end

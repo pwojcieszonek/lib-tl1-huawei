@@ -1,8 +1,22 @@
+# Public Huawei API; TL1 fields are wrapper objects from the lib-tl1 gem.
+# Structural interfaces describe their use without duplicating dependency declarations.
 module Lib
   module TL1
     module Huawei
-      VERSION: String
-      # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+      type parameter = String | Symbol | Numeric | bool
+      type show_options = Array[String | Symbol] | String | Symbol | nil
+      type field_value = parameter | _Field | nil
+
+      interface _Field
+        def to_s: () -> String
+        def to_str: () -> String
+        def field: () -> untyped
+      end
+
+      interface _CorrelationTag
+        include _Field
+        def to_i: () -> Integer
+      end
     end
   end
 end

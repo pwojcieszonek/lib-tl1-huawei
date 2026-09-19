@@ -6,15 +6,14 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries GPON ports by device and physical coordinates.
         class LstGponPort < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :frame_number, :slot_number, :port_number
 
           def initialize(did: nil, dev: nil, frame_number: nil, slot_number: nil, port_number: nil)
-            @did = did
-            @dev = dev
-            @frame_number = frame_number
-            @slot_number = slot_number
-            @port_number = port_number
+            set_attributes(
+              did:, dev:, frame_number:, slot_number:, port_number:
+            )
             super(
               aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number, pn: port_number

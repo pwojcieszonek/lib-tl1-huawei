@@ -6,9 +6,10 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Builds the SHAKEHAND command used to check an NBI session.
         class ShakeHand < Lib::TL1::Huawei::Message::Input
           def initialize
-            super
+            super(command: 'SHAKEHAND')
           end
         end
       end

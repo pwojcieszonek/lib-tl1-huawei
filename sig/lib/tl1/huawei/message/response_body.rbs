@@ -1,0 +1,22 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        # Reads Huawei status, packet metadata, and result records within a TL1 frame.
+        class ResponseBody
+          STATUS: Regexp
+          PACKET: Regexp
+
+          def initialize: (String text, source: String) -> void
+          attr_reader en: Integer
+          attr_reader endesc: String
+          def blktag: () -> Integer?
+          def blkcount: () -> Integer?
+          def blktotal: () -> Integer?
+          def title: () -> String?
+          def response: () -> Array[Response]
+        end
+      end
+    end
+  end
+end

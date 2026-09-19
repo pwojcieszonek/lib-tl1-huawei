@@ -5,6 +5,7 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries GEM ports belonging to an ONT.
         class LstGemPort < Lib::TL1::Huawei::Message::Input
           attr_reader :did, :dev, :frame_number, :slot_number, :port_number, :ont_id, :gem_port_id, :show_option
 
@@ -12,14 +13,9 @@ module Lib
             did: nil, dev: nil, frame_number: nil, slot_number: nil, port_number: nil,
             ont_id: nil, gem_port_id: nil, show_option: []
           )
-            @did = did
-            @dev = dev
-            @frame_number = frame_number
-            @slot_number = slot_number
-            @port_number = port_number
-            @ont_id = ont_id
-            @gem_port_id = gem_port_id
-            @show_option = show_option
+            set_attributes(
+              did:, dev:, frame_number:, slot_number:, port_number:, ont_id:, gem_port_id:, show_option:
+            )
             super(
               aid: hash_to_string(
                 did: did, dev: dev, fn: frame_number, sn: slot_number,

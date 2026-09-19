@@ -1,0 +1,9 @@
+# Message signatures are loaded recursively from the message directory.
+module Lib
+  module TL1
+    module Huawei
+      module Message
+      end
+    end
+  end
+end

@@ -6,9 +6,11 @@ module Lib
   module TL1
     module Huawei
       module Message
+        # Queries devices and optionally selects returned device attributes.
         class LstDev < Lib::TL1::Huawei::Message::Input
+          attr_reader :did, :dev, :dev_ip, :dev_type, :dev_ver, :onu_locate_info, :show_option, :user_id
 
-          attr_reader :did, :dev, :dev_ip, :dev_type, :dev_ver, :onu_locate_info, :showoption, :user_id
+          alias showoption show_option
 
           def initialize(
             did: nil,
@@ -20,15 +22,9 @@ module Lib
             show_option: [],
             user_id: nil
           )
-
-            @did = did
-            @dev = dev
-            @dev_ip = dev_ip
-            @dt = dev_type
-            @dev_ver = dev_ver
-            @onu_locate_info = onu_locate_info
-            @show_option = show_option
-            @user_id = user_id
+            set_attributes(
+              did:, dev:, dev_ip:, dev_type:, dev_ver:, onu_locate_info:, show_option:, user_id:
+            )
 
             super(
               aid: hash_to_string(
@@ -44,7 +40,6 @@ module Lib
                 user_id: user_id
               )
             )
-
           end
         end
       end

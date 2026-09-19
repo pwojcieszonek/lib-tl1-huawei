@@ -1,0 +1,29 @@
+module Lib
+  module TL1
+    module Huawei
+      module Message
+        class LstDev < Input
+          def initialize: (
+            ?did: parameter?,
+            ?dev: parameter?,
+            ?dev_ip: parameter?,
+            ?dev_type: parameter?,
+            ?dev_ver: parameter?,
+            ?onu_locate_info: parameter?,
+            ?show_option: show_options,
+            ?user_id: parameter?
+          ) -> void
+          attr_reader did: parameter?
+          attr_reader dev: parameter?
+          attr_reader dev_ip: parameter?
+          attr_reader dev_type: parameter?
+          attr_reader dev_ver: parameter?
+          attr_reader onu_locate_info: parameter?
+          attr_reader show_option: show_options
+          attr_reader user_id: parameter?
+          alias showoption show_option
+        end
+      end
+    end
+  end
+end
